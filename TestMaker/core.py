@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from fabric.api import env, run, put, open_shell, local
 import csv, random, os, string, re, sys
 import jinja2

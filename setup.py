@@ -7,7 +7,7 @@ setup(name='test-maker',
       version=version,
       description="Test Maker",
       scripts=[
-            #"bin/make_others.py", 
+            "bin/test-make", 
             ],
       long_description="""test-maker""",
       classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
