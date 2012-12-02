@@ -33,7 +33,7 @@ class TestVersions(TestCase):
     def test_rendering(self):
         m = TestMaker(filename="/Users/idm/Code/psyc85-f12-final/conf/fall-final.json")
         m.load_questions()
-        m.render_questions()
+        m.render_version("Version A")
 
     @attr('online')
     def test_false(self):

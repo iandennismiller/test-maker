@@ -5,6 +5,11 @@ import jinja2
 import codecs
 from optparse import OptionParser
 
+def UnicodeDictReader(utf8_data, **kwargs):
+    csv_reader = csv.DictReader(utf8_data, **kwargs)
+    for row in csv_reader:
+        yield dict([(key, unicode(value, 'utf-8')) for key, value in row.iteritems()])
+
 class TestMaker(object):
     def __init__(self, filename=None):
         if filename:
@@ -34,7 +39,7 @@ class TestMaker(object):
 
     def load_question_file(self, filename):
         with open(filename, 'rb') as csvfile:
-            questionreader = csv.DictReader(csvfile, quotechar='"')
+            questionreader = UnicodeDictReader(csvfile, quotechar='"')
             rows = list(questionreader)
         self.questions += rows
 
@@ -54,15 +59,13 @@ class TestMaker(object):
 
     def make_versions(self):
         for version in self.cfg['versions']:
-            filename = os.path.join(self.cfg["version_path"], "%s.json" % version)
+            filename = os.path.join(self.cfg["output_path"], "%s.json" % version)
             filename = self.get_filename(filename)
             with open(filename, "wb") as f:
                 json.dump(self.make_version(), f)
 
-    def render_question(self, question):
+    def render_question(self, question, mapping):
         template = self.jinja.get_template(self.cfg["templates"]["question"])
-        print question
-
         choices = [
             u"\choice {0}".format(question['foil1']),
             u"\choice {0}".format(question['foil2']),
@@ -71,45 +74,48 @@ class TestMaker(object):
         ]
         # here replace ___ with TeX underlines
         question = re.sub(r'_+', "\underline{\hspace*{0.5in}}", question['question'])
+        # here shuffle the questions according to the mapping
         choices = u"\t\t" + u"\n\t\t".join(choices)
         return template.render(choices=choices, question=question)
 
-    def render_questions(self):
+    def get_version_mapping(self, version):
+        filename = os.path.join(self.cfg["version_path"], "%s.json" % version)
+        filename = self.get_filename(filename)
+        with open(filename, "r") as f:
+            mapping = json.load(f)
+        return mapping
+
+    def render_choices(self, version, version_mapping):
         buf = u""
-        for question in self.questions:
-            buf += self.render_question(question)
+        this_version = self.questions
+        # here, another level of randomization: all the questions orders
+        #random.shuffle(this_version)
+        for (question, mapping) in zip(this_version, version_mapping):
+            buf += self.render_question(question, mapping)
         return buf
 
-def generate_questions():
+    def render_versions(self):
+        for version in self.cfg["versions"]:
+            self.render_version(version)
 
-    env = jinja2.Environment(loader=jinja2.FileSystemLoader('.'))
-    template = env.get_template('question.tex')
+    def render_exam(self, choices, template, version, key=False):
+        outfile_tex = os.path.join(self.cfg["output_path"], "%s.tex" % version)
+        outfile_tex = self.get_filename(outfile_tex)
+        assets_latex = '\graphicspath{{%s/}}' % self.get_filename(self.cfg["assets_path"])
+        with codecs.open(outfile_tex, 'w', encoding="utf-8") as texfile:
+            if key:
+                rendered = template.render(questions=choices, version="%s KEY" % version, answers="answers,", assets_path=assets_latex)
+            else:
+                rendered = template.render(questions=choices, version=version, answers="", assets_path=assets_latex)
+            texfile.write(rendered)
+        cmd = "pdflatex -output-directory=%s '%s'" % \
+            (self.get_filename(self.cfg["output_path"]), outfile_tex)
+        print(cmd)
+        os.system(cmd)
 
-
-def generate_version(version, early=False):
-    env = jinja2.Environment(loader=jinja2.FileSystemLoader('.'))
-    template = env.get_template('exam_template.tex')
-
-    buf = generate_questions()
-
-    with codecs.open('latex/exam_%s_key.tex' % version, 'w', encoding="utf-8") as texfile:
-        rendered = template.render(questions=buf, version="%s KEY" % version, answers="answers,")
-        texfile.write(rendered)
-    os.system("pdflatex -output-directory=latex %s" % 'latex/exam_%s_key.tex' % version)
-
-    if early:
-        sys.exit()
-
-    with codecs.open('latex/exam_%s.tex' % version, 'w', encoding="utf-8") as texfile:
-        rendered = template.render(questions=buf, version=version, answers="")
-        texfile.write(rendered)
-    os.system("pdflatex -output-directory=latex %s" % 'latex/exam_%s.tex' % version)
-
-def exam():
-    generate_version("A")
-    generate_version("B")
-    os.system("rm latex/exam_*.aux latex/exam_*.log")
-    os.system("mv latex/exam_*.pdf exams")
-
-def one():
-    generate_version("A", early=True)
+    def render_version(self, version):
+        answer_choices = self.get_version_mapping(version)
+        buf = self.render_choices(version, answer_choices)
+        template = self.jinja.get_template('exam.tex')
+        #self.render_exam(buf, template, version, key=False)
+        self.render_exam(buf, template, version, key=True)
