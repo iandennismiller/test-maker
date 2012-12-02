@@ -43,7 +43,7 @@ class TestVersion(object):
         question_str = re.sub(r'_+', "\underline{\hspace*{0.5in}}", question['question'])
         arranged = u"\t\t" + u"\n\t\t".join(arranged)
         if self.key:
-            source = '\\textbf{(Source: %s)}' % question['source']
+            source = '\\textit{(Source: %s)}' % question['source']
             return template.render(choices=arranged, question=question_str, source=source)
         else:
             return template.render(choices=arranged, question=question_str, source="")
