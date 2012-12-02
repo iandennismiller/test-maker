@@ -64,9 +64,9 @@ class TestMaker(object):
                 answers.write(buf)
 
     def render_version(self, version):
-        v = Version(self, version, key=True)
+        v = TestVersion(self, version, key=True)
         v.render()
-        v = Version(self, version, key=False)
+        v = TestVersion(self, version, key=False)
         v.render()
 
     def render_all_versions(self):

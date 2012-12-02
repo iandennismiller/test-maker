@@ -39,11 +39,14 @@ class TestVersion(object):
             choices[mapping[3]],
         ]
 
-        source = '\\textbf{(Source: %s)}' % question['source']
         # here replace ___ with TeX underlines
         question_str = re.sub(r'_+', "\underline{\hspace*{0.5in}}", question['question'])
         arranged = u"\t\t" + u"\n\t\t".join(arranged)
-        return template.render(choices=arranged, question=question_str, source=source)
+        if self.key:
+            source = '\\textbf{(Source: %s)}' % question['source']
+            return template.render(choices=arranged, question=question_str, source=source)
+        else:
+            return template.render(choices=arranged, question=question_str, source="")
 
     def render(self):
         questions = u""
@@ -55,18 +58,25 @@ class TestVersion(object):
         assets_latex = '\graphicspath{{%s/}}' % self.tm.get_filename(self.tm.cfg["assets_path"])
 
         if self.key:
-            outfile_tex = os.path.join(self.tm.cfg["output_path"], "%s KEY.tex" % self.version)
+            tex_filename = "%s KEY.tex" % self.version
+            version_presentation = "%s KEY" % self.version
+            answers = "answers,"
         else:
-            outfile_tex = os.path.join(self.tm.cfg["output_path"], "%s.tex" % self.version)
+            tex_filename = "%s.tex" % self.version
+            version_presentation = self.version
+            answers = ""
+
+        outfile_tex = os.path.join(self.tm.cfg["output_path"], tex_filename)
         outfile_tex = self.tm.get_filename(outfile_tex)
         with codecs.open(outfile_tex, 'w', encoding="utf-8") as texfile:
-            if self.key:
-                rendered = template.render(questions=questions, version="%s KEY" % self.version, answers="answers,", assets_path=assets_latex)
-            else:
-                rendered = template.render(questions=questions, version=self.version, answers="", assets_path=assets_latex)
+            rendered = template.render(
+                questions=questions, 
+                version=version_presentation, 
+                answers=answers, 
+                assets_path=assets_latex
+                )
             texfile.write(rendered)
 
         cmd = "pdflatex -output-directory=%s '%s'" % \
             (self.tm.get_filename(self.tm.cfg["output_path"]), outfile_tex)
         os.system(cmd)
-
