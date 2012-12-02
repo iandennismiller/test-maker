@@ -30,10 +30,15 @@ class TestVersions(TestCase):
         m.load_questions()
         m.make_versions()
 
-    def test_rendering(self):
+    def test_render_one(self):
         m = TestMaker(filename="/Users/idm/Code/psyc85-f12-final/conf/fall-final.json")
         m.load_questions()
         m.render_version("Version A")
+
+    def test_rendering(self):
+        m = TestMaker(filename="/Users/idm/Code/psyc85-f12-final/conf/fall-final.json")
+        m.load_questions()
+        m.render_versions()
 
     @attr('online')
     def test_false(self):

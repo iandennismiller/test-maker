@@ -76,11 +76,17 @@ class TestMaker(object):
         ]
         
         # TODO: place the choices in the order specified by the mapping
+        arranged = [
+            choices[mapping[0]],
+            choices[mapping[1]],
+            choices[mapping[2]],
+            choices[mapping[3]],
+        ]
 
         # here replace ___ with TeX underlines
         question = re.sub(r'_+', "\underline{\hspace*{0.5in}}", question['question'])
-        choices = u"\t\t" + u"\n\t\t".join(choices)
-        return template.render(choices=choices, question=question)
+        arranged = u"\t\t" + u"\n\t\t".join(arranged)
+        return template.render(choices=arranged, question=question)
 
     def get_version_mapping(self, version):
         filename = os.path.join(self.cfg["version_path"], "%s.json" % version)
@@ -91,11 +97,8 @@ class TestMaker(object):
 
     def render_choices(self, version, version_mapping):
         buf = u""
-        this_version = self.questions
-        
-        # TODO: go through the mapping, and load the question specified
-
-        for (question, mapping) in zip(this_version, version_mapping):
+        for (original, mapping) in version_mapping:
+            question = self.questions[original]
             buf += self.render_question(question, mapping)
         return buf
 
