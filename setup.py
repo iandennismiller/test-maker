@@ -7,7 +7,6 @@ setup(name='test-maker',
       version=version,
       description="Test Maker",
       scripts=[
-            "bin/make-version", 
             "bin/make-test", 
             ],
       long_description="""test-maker""",

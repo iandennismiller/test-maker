@@ -1,4 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-pass
+from TestMaker.core import TestMaker
+from optparse import OptionParser
+import os
+
+parser = OptionParser()
+parser.add_option('-c', "--config", dest="cfg_file", help="configuration file")
+(options, args) = parser.parse_args()
+
+if options.cfg_file:
+    m = TestMaker(options.cfg_file)
+    m.load_questions()
+    m.make_versions()
+    os.system("cp output/key.txt versions")
+    os.system("cp output/*.json versions")
+    m.render_versions()
+    os.system("cp output/*.pdf archive")
+else:
+    print "--config is a required option"
+    sys.exit()
+

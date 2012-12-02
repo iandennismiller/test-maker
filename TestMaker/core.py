@@ -11,22 +11,9 @@ def UnicodeDictReader(utf8_data, **kwargs):
         yield dict([(key, unicode(value, 'utf-8')) for key, value in row.iteritems()])
 
 class TestMaker(object):
-    def __init__(self, filename=None):
-        if filename:
-            with open(filename) as f:
-                self.cfg = json.load(f)
-        else:
-            parser = OptionParser()
-            parser.add_option('-c', "--config", dest="cfg_file", help="configuration file")
-            (options, args) = parser.parse_args()
-
-            if options.cfg_file:
-                with open(options.cfg_file) as f:
-                    self.cfg = json.load(f)
-            else:
-                print "--config is a required option"
-                sys.exit()
-
+    def __init__(self, filename):
+        with open(filename) as f:
+            self.cfg = json.load(f)
         self.questions = list()
         loader = jinja2.FileSystemLoader(self.get_filename(self.cfg["template_path"]))
         self.jinja = jinja2.Environment(loader=loader)
@@ -60,19 +47,31 @@ class TestMaker(object):
         return zip(numbers, mapping)
 
     def make_versions(self):
-        for version in self.cfg['versions']:
-            filename = os.path.join(self.cfg["output_path"], "%s.json" % version)
-            filename = self.get_filename(filename)
-            with open(filename, "wb") as f:
-                json.dump(self.make_version(), f, indent=4)
+        answer_options = ['a', 'b', 'c', 'd']
+        answer_file = self.get_filename(os.path.join(self.cfg["output_path"], "key.txt"))
+        with open(answer_file, "w") as answers:
+            for version in self.cfg['versions']:
+                filename = os.path.join(self.cfg["output_path"], "%s.json" % version)
+                filename = self.get_filename(filename)
+                with open(filename, "wb") as f:
+                    mapping = self.make_version()
+                    json.dump(mapping, f, indent=4)
+                correct_answers = []
+                for item in mapping:
+                    # which one is the 0?
+                    correct_answers.append(answer_options[item[1].index(0)])
+                    if not (len(correct_answers)+1) % 6:
+                        correct_answers.append("/")
+                buf = "%s\n\n" % version + " ".join(correct_answers) + "\n\n"
+                answers.write(buf)
 
     def render_question(self, question, mapping):
         template = self.jinja.get_template(self.cfg["templates"]["question"])
         choices = [
+            u"\CorrectChoice {0}".format(question['correct']),
             u"\choice {0}".format(question['foil1']),
             u"\choice {0}".format(question['foil2']),
             u"\choice {0}".format(question['foil3']),
-            u"\CorrectChoice {0}".format(question['correct'])
         ]
         
         # TODO: place the choices in the order specified by the mapping
