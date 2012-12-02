@@ -5,11 +5,6 @@ import jinja2
 import codecs
 from optparse import OptionParser
 
-def UnicodeDictReader(utf8_data, **kwargs):
-    csv_reader = csv.DictReader(utf8_data, **kwargs)
-    for row in csv_reader:
-        yield dict([(key, unicode(value, 'utf-8')) for key, value in row.iteritems()])
-
 class TestMaker(object):
     def __init__(self, filename=None):
         if filename:
@@ -27,30 +22,62 @@ class TestMaker(object):
                 print "--config is a required option"
                 sys.exit()
 
-        self.questions = []
+        self.questions = list()
+        loader = jinja2.FileSystemLoader(self.get_filename(self.cfg["template_path"]))
+        self.jinja = jinja2.Environment(loader=loader)
+
+    def get_filename(self, bare_filename):
+        if "root_path" in self.cfg:
+            return os.path.join(self.cfg["root_path"], bare_filename)
+        else:
+            return bare_filename
 
     def load_question_file(self, filename):
         with open(filename, 'rb') as csvfile:
-            spamreader = UnicodeDictReader(csvfile, quotechar='"')
-            rows = list(spamreader)
-            self.questions.append(rows)
+            questionreader = csv.DictReader(csvfile, quotechar='"')
+            rows = list(questionreader)
+        self.questions += rows
 
     def load_questions(self):
-        for filename in self.cfg.questions:
-            self.load_question_file(filename)
+        for filename in self.cfg["questions"]:
+            self.load_question_file(self.get_filename(filename))
+
+    def make_version(self):
+        num_questions = len(self.questions)
+        num_options = 4
+        mapping = []
+        for i in range(0, num_questions):
+            choices = range(0, num_options)
+            random.shuffle(choices)
+            mapping.append(choices)
+        return mapping
+
+    def make_versions(self):
+        for version in self.cfg['versions']:
+            filename = os.path.join(self.cfg["version_path"], "%s.json" % version)
+            filename = self.get_filename(filename)
+            with open(filename, "wb") as f:
+                json.dump(self.make_version(), f)
+
+    def render_question(self, question):
+        template = self.jinja.get_template(self.cfg["templates"]["question"])
+        print question
+
+        choices = [
+            u"\choice {0}".format(question['foil1']),
+            u"\choice {0}".format(question['foil2']),
+            u"\choice {0}".format(question['foil3']),
+            u"\CorrectChoice {0}".format(question['correct'])
+        ]
+        # here replace ___ with TeX underlines
+        question = re.sub(r'_+', "\underline{\hspace*{0.5in}}", question['question'])
+        choices = u"\t\t" + u"\n\t\t".join(choices)
+        return template.render(choices=choices, question=question)
 
     def render_questions(self):
-        for row in rows:
-            choices = [
-                u"\choice {0}".format(row['foil1']),
-                u"\choice {0}".format(row['foil2']),
-                u"\choice {0}".format(row['foil3']),
-                #"\choice {0}".format(row['foil4']),
-                u"\CorrectChoice {0}".format(row['correct'])
-            ]
-            row['question'] = re.sub(r'_+', "\underline{\hspace*{0.5in}}", row['question'])
-            choices = u"\t\t" + u"\n\t\t".join(choices)
-            buf += template.render(choices=choices, question=row['question'])
+        buf = u""
+        for question in self.questions:
+            buf += self.render_question(question)
         return buf
 
 def generate_questions():

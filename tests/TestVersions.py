@@ -18,7 +18,22 @@ class TestVersions(TestCase):
 
     def test_create(self):
         m = TestMaker(filename="/Users/idm/Code/psyc85-f12-final/conf/fall-final.json")
+        assert m
+
+    def test_questions(self):
+        m = TestMaker(filename="/Users/idm/Code/psyc85-f12-final/conf/fall-final.json")
         m.load_questions()
+        assert_equal(len(m.questions), 50)
+
+    def test_make_version(self):
+        m = TestMaker(filename="/Users/idm/Code/psyc85-f12-final/conf/fall-final.json")
+        m.load_questions()
+        m.make_versions()
+
+    def test_rendering(self):
+        m = TestMaker(filename="/Users/idm/Code/psyc85-f12-final/conf/fall-final.json")
+        m.load_questions()
+        m.render_questions()
 
     @attr('online')
     def test_false(self):
