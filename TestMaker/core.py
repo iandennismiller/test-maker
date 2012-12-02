@@ -74,7 +74,7 @@ class TestMaker(object):
             u"\choice {0}".format(question['foil3']),
         ]
         
-        # TODO: place the choices in the order specified by the mapping
+        # place the choices in the order specified by the mapping
         arranged = [
             choices[mapping[0]],
             choices[mapping[1]],
@@ -82,10 +82,11 @@ class TestMaker(object):
             choices[mapping[3]],
         ]
 
+        source = '\\textbf{(Source: %s)}' % question['source']
         # here replace ___ with TeX underlines
-        question = re.sub(r'_+', "\underline{\hspace*{0.5in}}", question['question'])
+        question_str = re.sub(r'_+', "\underline{\hspace*{0.5in}}", question['question'])
         arranged = u"\t\t" + u"\n\t\t".join(arranged)
-        return template.render(choices=arranged, question=question)
+        return template.render(choices=arranged, question=question_str, source=source)
 
     def get_version_mapping(self, version):
         filename = os.path.join(self.cfg["version_path"], "%s.json" % version)
