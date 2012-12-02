@@ -10,12 +10,12 @@ parser.add_option('-c', "--config", dest="cfg_file", help="configuration file")
 (options, args) = parser.parse_args()
 
 if options.cfg_file:
-    m = TestMaker(options.cfg_file)
-    m.load_questions()
-    m.make_versions()
+    tm = TestMaker(options.cfg_file)
+    tm.load_questions()
+    tm.create_all_versions()
     os.system("cp output/key.txt versions")
     os.system("cp output/*.json versions")
-    m.render_versions()
+    tm.render_all_versions()
     os.system("cp output/*.pdf archive")
 else:
     print "--config is a required option"

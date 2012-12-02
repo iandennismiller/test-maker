@@ -28,9 +28,9 @@ class TestVersions(TestCase):
     def test_make_version(self):
         m = TestMaker(filename="/Users/idm/Code/psyc85-f12-final/conf/fall-final.json")
         m.load_questions()
-        m.make_versions()
+        m.create_all_versions()
 
-    #@attr('slow')
+    @attr('slow')
     def test_render_one(self):
         m = TestMaker(filename="/Users/idm/Code/psyc85-f12-final/conf/fall-final.json")
         m.load_questions()
@@ -40,7 +40,7 @@ class TestVersions(TestCase):
     def test_rendering(self):
         m = TestMaker(filename="/Users/idm/Code/psyc85-f12-final/conf/fall-final.json")
         m.load_questions()
-        m.render_versions()
+        m.render_all_versions()
 
     @attr('online')
     def test_false(self):
