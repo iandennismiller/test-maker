@@ -1,25 +1,45 @@
 # -*- coding: utf-8 -*-
 
-from fabric.api import env, run, put, open_shell, local
-import csv, random, os, string, re, sys
+import csv, random, os, string, re, sys, json
 import jinja2
 import codecs
+from optparse import OptionParser
 
-def generate_questions():
+def UnicodeDictReader(utf8_data, **kwargs):
+    csv_reader = csv.DictReader(utf8_data, **kwargs)
+    for row in csv_reader:
+        yield dict([(key, unicode(value, 'utf-8')) for key, value in row.iteritems()])
 
-    def UnicodeDictReader(utf8_data, **kwargs):
-        csv_reader = csv.DictReader(utf8_data, **kwargs)
-        for row in csv_reader:
-            yield dict([(key, unicode(value, 'utf-8')) for key, value in row.iteritems()])
+class TestMaker(object):
+    def __init__(self, filename=None):
+        if filename:
+            with open(filename) as f:
+                self.cfg = json.load(f)
+        else:
+            parser = OptionParser()
+            parser.add_option('-c', "--config", dest="cfg_file", help="configuration file")
+            (options, args) = parser.parse_args()
 
-    env = jinja2.Environment(loader=jinja2.FileSystemLoader('.'))
-    template = env.get_template('question.tex')
+            if options.cfg_file:
+                with open(options.cfg_file) as f:
+                    self.cfg = json.load(f)
+            else:
+                print "--config is a required option"
+                sys.exit()
 
-    with open('exam_source.csv', 'rb') as csvfile:
-        spamreader = UnicodeDictReader(csvfile, quotechar='"')
-        buf = u""
-        rows = list(spamreader)
-        random.shuffle(rows)
+        self.questions = []
+
+    def load_question_file(self, filename):
+        with open(filename, 'rb') as csvfile:
+            spamreader = UnicodeDictReader(csvfile, quotechar='"')
+            rows = list(spamreader)
+            self.questions.append(rows)
+
+    def load_questions(self):
+        for filename in self.cfg.questions:
+            self.load_question_file(filename)
+
+    def render_questions(self):
         for row in rows:
             choices = [
                 u"\choice {0}".format(row['foil1']),
@@ -28,11 +48,16 @@ def generate_questions():
                 #"\choice {0}".format(row['foil4']),
                 u"\CorrectChoice {0}".format(row['correct'])
             ]
-            random.shuffle(choices)
             row['question'] = re.sub(r'_+', "\underline{\hspace*{0.5in}}", row['question'])
             choices = u"\t\t" + u"\n\t\t".join(choices)
             buf += template.render(choices=choices, question=row['question'])
-    return buf
+        return buf
+
+def generate_questions():
+
+    env = jinja2.Environment(loader=jinja2.FileSystemLoader('.'))
+    template = env.get_template('question.tex')
+
 
 def generate_version(version, early=False):
     env = jinja2.Environment(loader=jinja2.FileSystemLoader('.'))
