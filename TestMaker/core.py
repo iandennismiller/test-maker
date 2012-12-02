@@ -55,14 +55,16 @@ class TestMaker(object):
             choices = range(0, num_options)
             random.shuffle(choices)
             mapping.append(choices)
-        return mapping
+        numbers = range(0, 50)
+        random.shuffle(numbers)
+        return zip(numbers, mapping)
 
     def make_versions(self):
         for version in self.cfg['versions']:
             filename = os.path.join(self.cfg["output_path"], "%s.json" % version)
             filename = self.get_filename(filename)
             with open(filename, "wb") as f:
-                json.dump(self.make_version(), f)
+                json.dump(self.make_version(), f, indent=4)
 
     def render_question(self, question, mapping):
         template = self.jinja.get_template(self.cfg["templates"]["question"])
@@ -72,9 +74,11 @@ class TestMaker(object):
             u"\choice {0}".format(question['foil3']),
             u"\CorrectChoice {0}".format(question['correct'])
         ]
+        
+        # TODO: place the choices in the order specified by the mapping
+
         # here replace ___ with TeX underlines
         question = re.sub(r'_+', "\underline{\hspace*{0.5in}}", question['question'])
-        # here shuffle the questions according to the mapping
         choices = u"\t\t" + u"\n\t\t".join(choices)
         return template.render(choices=choices, question=question)
 
@@ -88,8 +92,9 @@ class TestMaker(object):
     def render_choices(self, version, version_mapping):
         buf = u""
         this_version = self.questions
-        # here, another level of randomization: all the questions orders
-        #random.shuffle(this_version)
+        
+        # TODO: go through the mapping, and load the question specified
+
         for (question, mapping) in zip(this_version, version_mapping):
             buf += self.render_question(question, mapping)
         return buf
@@ -99,7 +104,10 @@ class TestMaker(object):
             self.render_version(version)
 
     def render_exam(self, choices, template, version, key=False):
-        outfile_tex = os.path.join(self.cfg["output_path"], "%s.tex" % version)
+        if key:
+            outfile_tex = os.path.join(self.cfg["output_path"], "%s KEY.tex" % version)
+        else:
+            outfile_tex = os.path.join(self.cfg["output_path"], "%s.tex" % version)
         outfile_tex = self.get_filename(outfile_tex)
         assets_latex = '\graphicspath{{%s/}}' % self.get_filename(self.cfg["assets_path"])
         with codecs.open(outfile_tex, 'w', encoding="utf-8") as texfile:
@@ -117,5 +125,5 @@ class TestMaker(object):
         answer_choices = self.get_version_mapping(version)
         buf = self.render_choices(version, answer_choices)
         template = self.jinja.get_template('exam.tex')
-        #self.render_exam(buf, template, version, key=False)
+        self.render_exam(buf, template, version, key=False)
         self.render_exam(buf, template, version, key=True)
