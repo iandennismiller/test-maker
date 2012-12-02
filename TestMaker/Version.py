@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import csv, random, os, string, re, sys, json
+import os, re, json, codecs
 import jinja2
-import codecs
 
 class TestVersion(object):
     def __init__(self, testmaker, version_name, key=False):
@@ -43,7 +42,7 @@ class TestVersion(object):
         question_str = re.sub(r'_+', "\underline{\hspace*{0.5in}}", question['question'])
         arranged = u"\t\t" + u"\n\t\t".join(arranged)
         if self.key:
-            source = '\\textit{(Source: %s)}' % question['source']
+            source = '\\textit{(%s)}' % question['source']
             return template.render(choices=arranged, question=question_str, source=source)
         else:
             return template.render(choices=arranged, question=question_str, source="")

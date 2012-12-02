@@ -17,6 +17,8 @@ if options.cfg_file:
     os.system("cp output/*.json versions")
     tm.render_all_versions()
     os.system("cp output/*.pdf archive")
+    os.system("mv archive/*KEY.pdf archive/keys")
+    os.system("mv archive/*.pdf archive/exams")
 else:
     print "--config is a required option"
     sys.exit()

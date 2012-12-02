@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import csv, random, os, string, re, sys, json
-import codecs
-from optparse import OptionParser
+import csv, random, os, json
 from Version import TestVersion
 
 def UnicodeDictReader(utf8_data, **kwargs):
