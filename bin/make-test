@@ -7,8 +7,11 @@ import os
 
 parser = OptionParser()
 parser.add_option('-c', "--config", dest="cfg_file", help="configuration file")
-parser.add_option('-n', "--new", dest="new_version", help="create all new materials")
+parser.add_option('-n', "--new", dest="new_version", action="store_true", help="create all new materials")
 (options, args) = parser.parse_args()
+
+if not os.path.exists("output"):
+    os.makedirs("output")
 
 if options.cfg_file:
     tm = TestMaker(options.cfg_file)
