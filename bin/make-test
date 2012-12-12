@@ -7,14 +7,18 @@ import os
 
 parser = OptionParser()
 parser.add_option('-c', "--config", dest="cfg_file", help="configuration file")
+parser.add_option('-n', "--new", dest="new_version", help="create all new materials")
 (options, args) = parser.parse_args()
 
 if options.cfg_file:
     tm = TestMaker(options.cfg_file)
     tm.load_questions()
-    tm.create_all_versions()
-    os.system("cp output/key.txt versions")
-    os.system("cp output/*.json versions")
+
+    if options.new_version:
+        tm.create_all_versions()
+        os.system("cp output/key.txt versions")
+        os.system("cp output/*.json versions")
+
     tm.render_all_versions()
     os.system("cp output/*.pdf archive")
     os.system("mv archive/*KEY.pdf archive/keys")
