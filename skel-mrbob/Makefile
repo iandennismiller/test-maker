@@ -1,5 +1,4 @@
-all:
-	clean build
+all: clean build
 
 build:
 	make-test --new --config $$PWD/config.json
