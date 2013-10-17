@@ -1,4 +1,4 @@
-# {{{ course }}} {{{ session }}} {{{ benchmark }}}
+# {{{ course }}} {{{ benchmark }}} {{{ session }}}
 
 workon mrbob
 mrbob ~/Work/test-maker/skel-mrbob -O {{{ project_path }}}
