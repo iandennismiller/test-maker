@@ -1,0 +1,8 @@
+# {{{ course }}} {{{ session }}} {{{ benchmark }}}
+
+workon mrbob
+mrbob ~/Work/test-maker/skel-mrbob -O {{{ project_path }}}
+
+workon test-maker
+cd {{{ project_path }}}
+make

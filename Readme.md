@@ -10,11 +10,12 @@ Just download the repo and install it globally.
 
 Once installed, each exam will sit in its own folder.  Start by copying the `skel` directory.
 
-    cp -r skel /tmp/new-exam
+    workon mrbob
+    mrbob ~/Work/test-maker/skel-mrbob -O {{{ project_path }}}
 
 ### config file
 
-Create a config file (let's call it `final.json` that will control how your exam is built.
+Edit config file (config.json) that will control how your exam is built.
 
     {
         "root_path": "/tmp/new-exam",
@@ -41,7 +42,7 @@ Create a config file (let's call it `final.json` that will control how your exam
 
 ### running it
 
-    make-test --config /tmp/new-exam/conf/final.json
+    make
 
 # Conclusion
 

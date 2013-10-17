@@ -47,7 +47,7 @@ class TestMaker(object):
         answer_file = self.get_filename(os.path.join(self.cfg["output_path"], "key.txt"))
         with open(answer_file, "w") as answers:
             for version in self.cfg['versions']:
-                filename = os.path.join(self.cfg["output_path"], "%s.json" % version)
+                filename = os.path.join(self.cfg["version_path"], "%s.json" % version)
                 filename = self.get_filename(filename)
                 with open(filename, "wb") as f:
                     mapping = self.create_version()

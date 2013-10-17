@@ -1,0 +1,23 @@
+{
+    "root_path": "{{{ project_path }}}",
+    "assets_path": "assets",
+    "questions": [
+        "questions/lecture.csv",
+        "questions/book.csv"
+    ],
+    "template_path": "templates",
+    "templates": {
+        "question": "question.tex",
+        "exam": "exam.tex"
+    },
+    "versions": [
+        "Version A",
+        "Version B",
+        "Version C",
+        "Makeup Version A",
+        "Makeup Version B"
+    ],
+    "version_path": "output/versions",
+    "build_path": ".build",
+    "output_path": "output"
+}

@@ -65,7 +65,7 @@ class TestVersion(object):
             version_presentation = self.version
             answers = ""
 
-        outfile_tex = os.path.join(self.tm.cfg["output_path"], tex_filename)
+        outfile_tex = os.path.join(self.tm.cfg["build_path"], tex_filename)
         outfile_tex = self.tm.get_filename(outfile_tex)
         with codecs.open(outfile_tex, 'w', encoding="utf-8") as texfile:
             rendered = template.render(
@@ -77,5 +77,5 @@ class TestVersion(object):
             texfile.write(rendered)
 
         cmd = "pdflatex -output-directory=%s '%s'" % \
-            (self.tm.get_filename(self.tm.cfg["output_path"]), outfile_tex)
+            (self.tm.get_filename(self.tm.cfg["build_path"]), outfile_tex)
         os.system(cmd)

@@ -10,8 +10,9 @@ parser.add_option('-c', "--config", dest="cfg_file", help="configuration file")
 parser.add_option('-n', "--new", dest="new_version", action="store_true", help="create all new materials")
 (options, args) = parser.parse_args()
 
-if not os.path.exists("output"):
-    os.makedirs("output")
+for path_name in [".build", "output", "output/versions", "output/keys", "output/exams"]:
+    if not os.path.exists(path_name):
+        os.makedirs(path_name)
 
 if options.cfg_file:
     tm = TestMaker(options.cfg_file)
@@ -19,14 +20,13 @@ if options.cfg_file:
 
     if options.new_version:
         tm.create_all_versions()
-        os.system("cp output/key.txt versions")
-        os.system("cp output/*.json versions")
+        #os.system("cp .build/key.txt output")
+        #os.system("cp .build/*.json output/versions")
 
     tm.render_all_versions()
-    os.system("cp output/*.pdf archive")
-    os.system("mv archive/*KEY.pdf archive/keys")
-    os.system("mv archive/*.pdf archive/exams")
+    #os.system("cp output/*.pdf archive")
+    os.system("mv .build/*KEY.pdf output/keys")
+    os.system("mv .build/*.pdf output/exams")
 else:
     print "--config is a required option"
     sys.exit()
-

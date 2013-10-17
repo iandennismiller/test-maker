@@ -1,0 +1,74 @@
+\documentclass[{{ answers }}12pt]{exam}
+
+\usepackage[utf8]{inputenc}
+\usepackage{setspace}
+\usepackage{graphicx}
+
+\begin{document}
+
+{{assets_path}}
+
+\includegraphics[width=3in]{utsc_logo.jpg}
+\vspace{0.25in}
+
+\makebox[3in]{Name:\enspace\hrulefill}
+\vspace{0.25in}
+
+\makebox[3in]{Student ID:\enspace\hrulefill}
+\vspace{0.5in}
+
+\begin{center}
+\setstretch{2}
+
+{{{ course }}}
+
+{{{ benchmark }}} {{{ session }}}
+
+\vspace{0.5in}
+
+\textbf{ {{ version }} }
+
+\vspace{0.5in}
+
+{{{ professor }}}
+
+Teaching Assistants: {{{ teaching_assistants }}}
+
+\vspace{1.0in}
+
+50 multiple choice questions
+
+(1 mark each)
+
+Total 50 marks
+
+Worth 31\% of final course grade
+
+\singlespacing
+\end{center}
+
+\newpage
+\widowpenalties 1 10000
+\raggedbottom
+
+\begin{questions}
+
+{{ questions }}
+
+\end{questions}
+
+\begin{center}
+    \vspace{0.5in}
+    \rule{5in}{1px}
+    \vspace{0.5in}
+
+    \textbf{Remember}
+
+    \begin{itemize}
+        \item Did you fill in the bubbles for \textbf{your name} on the answer sheet?
+        \item Did you put \textbf{your student number} on the answer sheet and fill in the bubbles?
+        \item Did you write \textbf{your test version} on the answer sheet?
+    \end{itemize}
+\end{center}
+
+\end{document}
