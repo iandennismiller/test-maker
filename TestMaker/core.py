@@ -38,7 +38,7 @@ class TestMaker(object):
             choices = range(0, num_options)
             random.shuffle(choices)
             mapping.append(choices)
-        numbers = range(0, 50)
+        numbers = range(0, num_questions)
         random.shuffle(numbers)
         return zip(numbers, mapping)
 
