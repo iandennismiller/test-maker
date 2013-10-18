@@ -3,18 +3,32 @@
 \usepackage[utf8]{inputenc}
 \usepackage{setspace}
 \usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{color}
+
+\fboxsep=2mm \fboxrule=0.3mm
+\newcommand{\sq}{\fcolorbox{black}{white!40!white}{\color{white}A}\hspace{0.5 mm}}
 
 \begin{document}
 
 {{assets_path}}
 
+\begin{center}
 \includegraphics[width=3in]{utsc_logo.jpg}
+\end{center}
 \vspace{0.25in}
 
-\makebox[3in]{Name:\enspace\hrulefill}
+\makebox[1 in][l]{Student ID} \sq \sq \sq \sq \sq \sq \sq \sq \sq \sq
 \vspace{0.25in}
 
-\makebox[3in]{Student ID:\enspace\hrulefill}
+\makebox[1 in][l]{Family Name} \sq \sq \sq \sq \sq \sq \sq \sq \sq \sq \sq \sq \sq \sq \sq
+\vspace{0.25in}
+
+\makebox[1 in][l]{First Name} \sq \sq \sq \sq \sq \sq \sq \sq \sq \sq \sq \sq \sq \sq \sq
+\vspace{0.25in}
+
+\vspace{0.1in}
+\makebox[1in][l]{Signature}\makebox[3in]{\enspace\hrulefill}
 \vspace{0.5in}
 
 \begin{center}
@@ -26,15 +40,11 @@
 
 \vspace{0.5in}
 
-\textbf{ {{ version }} }
-
-\vspace{0.5in}
-
 {{{ professor }}}
 
 Teaching Assistants: {{{ teaching_assistants }}}
 
-\vspace{1.0in}
+\vspace{0.5in}
 
 50 multiple choice questions
 
@@ -62,12 +72,13 @@ Worth 31\% of final course grade
     \rule{5in}{1px}
     \vspace{0.5in}
 
-    \textbf{Remember}
+    \textbf{ {{ version }} }
+    \vspace{0.5in}
 
     \begin{itemize}
         \item Did you fill in the bubbles for \textbf{your name} on the answer sheet?
         \item Did you put \textbf{your student number} on the answer sheet and fill in the bubbles?
-        \item Did you write \textbf{your test version} on the answer sheet?
+        \item Did you write \textbf{your test version} on the answer sheet? Your exam is {{ version }}.
     \end{itemize}
 \end{center}
 
