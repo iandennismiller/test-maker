@@ -61,6 +61,9 @@ Worth 31\% of final course grade
 \widowpenalties 1 10000
 \raggedbottom
 
+Your exam is {{ version }}.  Now write this version in the corner of your answer sheet.
+\vspace{0.3in}
+
 \begin{questions}
 
 {{ questions }}
@@ -72,12 +75,12 @@ Worth 31\% of final course grade
     \rule{5in}{1px}
 
     \vspace{0.2in}
-    \textbf{ {{ version }} }
+    \textbf{Remember}
 
     \begin{itemize}
+        \item Did you write \textbf{your test version} on the answer sheet? Your exam is {{ version }}.
         \item Did you fill in the bubbles for \textbf{your name} on the answer sheet?
         \item Did you put \textbf{your student number} on the answer sheet and fill in the bubbles?
-        \item Did you write \textbf{your test version} on the answer sheet? Your exam is {{ version }}.
     \end{itemize}
 \end{center}
 
