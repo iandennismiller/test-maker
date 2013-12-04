@@ -27,9 +27,9 @@
 \makebox[1 in][l]{First Name} \sq \sq \sq \sq \sq \sq \sq \sq \sq \sq \sq \sq \sq \sq \sq
 \vspace{0.25in}
 
-\vspace{0.1in}
-\makebox[1in][l]{Signature}\makebox[3in]{\enspace\hrulefill}
-\vspace{0.5in}
+%\vspace{0.1in}
+%\makebox[1in][l]{Signature}\makebox[3in]{\enspace\hrulefill}
+%\vspace{0.5in}
 
 \begin{center}
 \setstretch{2}
@@ -61,7 +61,7 @@ Worth 31\% of final course grade
 \widowpenalties 1 10000
 \raggedbottom
 
-Your exam is {{ version }}.  Now write this version in the corner of your answer sheet.
+\textbf{Instructions: Your exam is {{ version }}.  Now write this version in the corner of your answer sheet.}
 \vspace{0.3in}
 
 \begin{questions}
