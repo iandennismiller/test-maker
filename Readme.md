@@ -13,7 +13,8 @@ Clone the git repository and install it.  It is recommended to install test-make
 
 Each exam exists in its own folder.  To scaffold a new exam, use the following command to instantiate a new exam folder.
 
-    mrbob skel-mrbob -w -O $TARGET_FOLDER
+    workon test-maker
+    mrbob scaffold -w -O $TARGET_FOLDER
 
 ### config file
 
