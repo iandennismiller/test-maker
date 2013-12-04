@@ -17,16 +17,17 @@ for path_name in [".build", "output", "output/versions", "output/keys", "output/
 if options.cfg_file:
     tm = TestMaker(options.cfg_file)
     tm.load_questions()
-
     if options.new_version:
         tm.create_all_versions()
-        #os.system("cp .build/key.txt output")
-        #os.system("cp .build/*.json output/versions")
-
     tm.render_all_versions()
-    #os.system("cp output/*.pdf archive")
+
+    # rename PDF files with descriptive name
+    os.system("cd .build; for i in *.pdf; do mv \"$i\" \"%s $i\"; done" % tm.cfg["filename_prefix"])
+
+    # move to output
     os.system("mv .build/*KEY.pdf output/keys")
     os.system("mv .build/*.pdf output/exams")
+
 else:
     print "--config is a required option"
     sys.exit()

@@ -11,13 +11,14 @@
         "exam": "exam.tex"
     },
     "versions": [
-        "Version A",
-        "Version B",
-        "Version C",
-        "Makeup Version A",
-        "Makeup Version B"
+        "A",
+        "B",
+        "C",
+        "Makeup A",
+        "Makeup B"
     ],
     "version_path": "output/versions",
     "build_path": ".build",
-    "output_path": "output"
+    "output_path": "output",
+    "filename_prefix": "{{{ course }}} - {{{ session }}} - {{{ benchmark }}} Exam - Version"
 }

@@ -29,7 +29,7 @@ class TestVersion(object):
             u"\choice {0}".format(question['foil2']),
             u"\choice {0}".format(question['foil3']),
         ]
-        
+
         # place the choices in the order specified by the mapping
         arranged = [
             choices[mapping[0]],
