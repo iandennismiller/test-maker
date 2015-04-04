@@ -1,6 +1,24 @@
 # Test-Maker Installation
 
+Test-Maker is a tool for creating perfect Multiple Choice exams with multiple versions.
 
+## Test-Maker Installation Process
+
+Before you can generate an exam, you must install the Test-Maker libraries and scripts.  Afterwards, you can generate as many exams as you want.  The installation process assumes:
+
+- you have already installed the pre-requisites
+- you are installing the Test-Maker in your User Library path (`~/Library`)
+
+First, download the source code.
+
+    cd ~/Library
+    git clone https://github.com/iandennismiller/test-maker.git
+    cd test-maker
+
+Create a Python virtual environment and install the Test-Maker.
+
+    mkvirtualenv -a test-maker
+    make install
 
 ## Pre-requisites
 
@@ -20,20 +38,3 @@
 
 Finally, install [MacTeX](http://www.tug.org/mactex/).
 
-## Test-Maker Installation Process
-
-Before you can generate an exam, you must install the Test-Maker libraries and scripts.  Afterwards, you can generate as many exams as you want.  The installation process assumes:
-
-- you have already installed the pre-requisites
-- you are installing the Test-Maker in your User Library path (`~/Library`)
-
-First, download the source code.
-
-    cd ~/Library
-    git clone https://github.com/iandennismiller/test-maker.git
-    cd test-maker
-
-Create a Python virtual environment and install the Test-Maker.
-
-    mkvirtualenv -a test-maker
-    make install

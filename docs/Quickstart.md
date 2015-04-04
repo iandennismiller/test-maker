@@ -1,6 +1,6 @@
 # Test-Maker Quickstart
 
-
+Test-Maker is a tool for creating perfect Multiple Choice exams with multiple versions.
 
 ## Creating an Exam
 
