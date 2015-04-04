@@ -4,7 +4,7 @@ Test-Maker is a tool for creating perfect Multiple Choice exams with multiple ve
 
 ## Creating an Exam
 
-Now that Test-Maker is installed, it is possible to generate new exams using the Test-Maker *scaffold*.  A *scaffold* is a template that can be customized with values that make it into your own exam.
+Now that Test-Maker [is installed](https://github.com/iandennismiller/test-maker/blob/master/docs/Install.md#test-maker-installation), it is possible to generate new exams using the Test-Maker *scaffold*.  A *scaffold* is a template that can be customized with values that make it into your own exam.
 
 Let's create an exam with the following parameters:
 
