@@ -1,8 +1,15 @@
 # {{{ course }}} {{{ benchmark }}} {{{ session }}}
 
-workon mrbob
-mrbob ~/Work/test-maker/scaffold -O {{{ project_path }}}
+The complete installation process is available from [the Test-Maker project website](https://github.com/iandennismiller/test-maker/blob/master/Readme.md)
 
-workon test-maker
-cd {{{ project_path }}}
-make
+Scaffold a new project:
+
+    workon test-maker
+    cdproject
+    mrbob scaffold -w -O {{{ project_path }}}
+
+Render an exam:
+
+    workon test-maker
+    cd {{{ project_path }}}
+    make
