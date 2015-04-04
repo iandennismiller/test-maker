@@ -20,7 +20,7 @@ Create a Python virtual environment and install the Test-Maker.
     mkvirtualenv -a test-maker
     make install
 
-Now Test-Maker is installed.
+Now Test-Maker is installed.  You are ready to [create your first exam using the Quickstart](https://github.com/iandennismiller/test-maker/blob/master/docs/Quickstart.md#test-maker-quickstart) procedure.
 
 ## Pre-requisites
 
