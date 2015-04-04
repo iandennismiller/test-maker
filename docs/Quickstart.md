@@ -58,7 +58,7 @@ The following config file (**config.json**) will render an exam with those param
 
 The questions, along with answer choices, are contained within Comman Separated Value files (.CSV) that are in the `questions` subdirectory of your exam.  Edit these files with a spreadsheet editor, like Excel or LibreOffice.  For boldface and italics, use the LaTeX commands \textit{} and \textbf{}.  For example, to boldface the "not" in a question prompt:
 
-    Which of the following is \testbf{not} the correct answer:
+    Which of the following is \textbf{not} the correct answer:
 
 ### Customizing the templates
 
