@@ -8,6 +8,8 @@ When preparing for an Exam, it is usually worth it to set things up carefully.
 
 ### Roles
 
+Since exams are typically administered by multiple teaching assistants, it can be helpful to distribute responsibilities amongs them.  The following roles specify a separation of responsibilities that makes it easier for people to know what their tasks are.  When everybody knows how to manage themselves, things usually run smoother.
+
 - **Checker**: collect the candidate forms and put them directly into a "candidate forms" envelope.  The Checker is not the same person as the Collector, because the checker creates one kind of receipt and the collector creates a different kind. The Checker waits until 30 minutes into the exam and then they ask the class if anybody still has their candidate forms. When all have been collected, the checker tells the class the envelope is being sealed, and then the envelope is sealed. Any extra candidate forms need to be logged directly on the envelope, or else it will not count because they are not physically inside the envelope.
 - **Collector**: one person collects exams from students, ensures the version is written on the answer sheet, stamps the receipt and gives it to the student, and passes the collected materials to the counter.  Basically, they are in charge of the stamp and ink, and they are responsible for making the exam receipts.
 - **Counter**: one person sorts the exams by version into separate piles, then keeps a tally of how many exams are in each pile.  They are responsible for the final counts of each exam version.  The tally needs to be written on a separate piece of paper (maybe generate this as a standard exam thing)
