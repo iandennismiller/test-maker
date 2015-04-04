@@ -42,9 +42,9 @@ When administering the exam to students, there are a few rules that help to ensu
 
 ### before the exam begins, students may:
 
-- fill out the candidate/signature form before the exam begins
-- write name on the answer sheet and fill in the name bubbles before the exam begins
-- write student ID on the answer sheet and fill in the bubbles before the exam begins
+- fill out the candidate/signature form
+- write name on the answer sheet and fill in the name bubbles
+- write student ID on the answer sheet and fill in the bubbles
 
 ### once the exam begins, students must:
 
