@@ -15,7 +15,6 @@ Let's create an exam with the following parameters:
 The following shell commands will create the exam:
 
     workon test-maker
-    cdproject
     mrbob scaffold -w -O ~/Documents/EDU100-2015-Spring-Final
 
 ## Customizing your Exam
