@@ -6,10 +6,10 @@ Test-Maker is a tool for creating perfect Multiple Choice exams with multiple ve
 
 Before you can generate an exam, you must install the Test-Maker libraries and scripts.  Afterwards, you can generate as many exams as you want.  The installation process assumes:
 
-- you have already installed the pre-requisites
+- you have already installed the [pre-requisites](https://github.com/iandennismiller/test-maker/blob/master/docs/Install.md#pre-requisites)
 - you are installing the Test-Maker in your User Library path (`~/Library`)
 
-First, download the source code.
+First, download the source code from the Project website on GitHub.
 
     cd ~/Library
     git clone https://github.com/iandennismiller/test-maker.git
@@ -19,6 +19,8 @@ Create a Python virtual environment and install the Test-Maker.
 
     mkvirtualenv -a test-maker
     make install
+
+Now Test-Maker is installed.
 
 ## Pre-requisites
 
