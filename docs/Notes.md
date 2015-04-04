@@ -21,3 +21,11 @@
 
 - the first page of the exam is a tear-off duplicate of the candidate form (also prevents students from knowing which version they have)
 - infographic with t-card and scantron explains how to copy student ID: it is 9 digits, and it must match exactly or else the computer will not link your answers to your online grades.  Also explain that Last Name is family name and First Name is given name.
+
+## future directions
+
+- optical scoring of scanned PDF answer sheets
+- automatic sorting of PDF answer sheets based on optical recognition of student ID.
+- put the infographic be at the end of the exam.  The pre-cover page is the candidate form only.
+- test receipt: the final page is blank except the unique ID number.  A custom ink stamp turns it into a receipt.  This page is removed for the student to keep as proof that they took the exam.
+
