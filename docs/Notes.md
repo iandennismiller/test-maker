@@ -16,6 +16,8 @@
 - each exam version is a single long PDF.
 - Each individual exam has a unique ID that appears on both the candidate form and the cover page of the exam
 - start sorting exams, versions, keys, scantrons, pdfs, blah in modular exam-packs
+- draft/proof system.  Print a non-randomized exam.
+- watermark draft/proof with "DRAFT" to avoid confusion
 
 ## administrative improvements
 

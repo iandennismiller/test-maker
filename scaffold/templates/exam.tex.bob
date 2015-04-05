@@ -14,7 +14,7 @@
 {{assets_path}}
 
 \begin{center}
-\includegraphics[width=3in]{utsc_logo.jpg}
+\includegraphics[width=3in]{utsc_new_logo.png}
 \end{center}
 \vspace{0.25in}
 
@@ -36,7 +36,7 @@
 
 {{{ course }}}
 
-{{{ benchmark }}} {{{ session }}}
+{{{ session }}} {{{ benchmark }}}
 
 \vspace{0.5in}
 
@@ -52,7 +52,7 @@ Teaching Assistants: {{{ teaching_assistants }}}
 
 Total 50 marks
 
-Worth 31\% of final course grade
+Worth one third of final course grade
 
 \singlespacing
 \end{center}
@@ -70,6 +70,7 @@ Worth 31\% of final course grade
 
 \end{questions}
 
+\begin{samepage}
 \begin{center}
     \vspace{0.3in}
     \rule{5in}{1px}
@@ -83,5 +84,6 @@ Worth 31\% of final course grade
         \item Did you put \textbf{your student number} on the answer sheet and fill in the bubbles?
     \end{itemize}
 \end{center}
+\end{samepage}
 
 \end{document}
